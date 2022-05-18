@@ -1,0 +1,25 @@
+{% extends 'todolist/base.html' %}
+{% block content %}
+<h1 class="center" style="text-align: center;">To Do List</h1>
+
+<div class="center" style="margin: auto; width: 50%; border: 3px solid black; padding: 10px;">
+    <form method="POST" action="/">
+        {% csrf_token %}
+        {{ form.title }}
+        <input type="submit" name="Create Task">
+    </form>
+
+    {% for i in tasks %}
+        <div>
+            <a href="{% url 'update_tasks' i.id %}">Update</a>
+            <a href="{% url 'delete' i.id %}">Delete</a>
+            {% if i.status == True %}
+                <strike>{{i}}</strike>
+            {% else %}
+                <span>{{i}}</span>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
